@@ -1,0 +1,6 @@
+{
+  "name": "Pressmark",
+  "description": "Fast batch watermarking, resizing, bulk renaming, and WebP/PNG/JPEG format conversion studio for photos, GIFs, and videos.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
