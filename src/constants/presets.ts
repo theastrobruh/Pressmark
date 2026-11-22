@@ -264,11 +264,13 @@ export const BUILTIN_PRESETS: WatermarkPreset[] = [
   },
 ];
 
+const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
+
 export const SAMPLE_MEDIA: MediaItem[] = [
   {
     id: 'sample-1',
     name: 'tokyo_street_photographer.jpg',
-    url: '/src/assets/images/sample_editorial_portrait_1795340320190.jpg',
+    url: `${BASE}/src/assets/images/sample_editorial_portrait_1795340320190.jpg`,
     kind: 'image',
     width: 896,
     height: 1152,
@@ -279,7 +281,7 @@ export const SAMPLE_MEDIA: MediaItem[] = [
   {
     id: 'sample-2',
     name: 'museum_concrete_facade.jpg',
-    url: '/src/assets/images/sample_urban_architecture_1795340320564.jpg',
+    url: `${BASE}/src/assets/images/sample_urban_architecture_1795340320564.jpg`,
     kind: 'image',
     width: 1376,
     height: 768,
@@ -290,7 +292,7 @@ export const SAMPLE_MEDIA: MediaItem[] = [
   {
     id: 'sample-3',
     name: 'matte_kettle_travertine.jpg',
-    url: '/src/assets/images/sample_studio_product_1795340320655.jpg',
+    url: `${BASE}/src/assets/images/sample_studio_product_1795340320655.jpg`,
     kind: 'image',
     width: 1024,
     height: 1024,
