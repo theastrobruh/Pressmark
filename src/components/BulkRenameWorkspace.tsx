@@ -220,7 +220,7 @@ export function BulkRenameWorkspace({
       </div>
 
       {/* Live Preview Table */}
-      <div className="flex-1 min-w-0 p-6 overflow-y-auto">
+      <div className="flex-1 min-w-0 p-4 sm:p-6 overflow-y-auto pb-20 md:pb-6">
         <div className="max-w-4xl mx-auto space-y-4">
           <div className="flex items-center justify-between gap-4">
             <div>
@@ -233,13 +233,13 @@ export function BulkRenameWorkspace({
                   : 'Bulk rename is currently off — original filenames will be preserved.'}
               </p>
             </div>
-            <span className="text-xs font-mono text-slate-400">
+            <span className="text-xs font-mono text-slate-400 shrink-0">
               {items.length} {items.length === 1 ? 'file' : 'files'}
             </span>
           </div>
 
-          <div className="rounded-lg border border-white/[0.08] bg-[#12151B] overflow-hidden">
-            <table className="w-full text-left border-collapse">
+          <div className="rounded-lg border border-white/[0.08] bg-[#12151B] overflow-x-auto">
+            <table className="w-full min-w-[540px] text-left border-collapse">
               <thead>
                 <tr className="border-b border-white/[0.08] text-[11px] font-medium text-slate-400 bg-[#0E1014]">
                   <th className="py-2.5 px-3 w-12 font-mono">#</th>

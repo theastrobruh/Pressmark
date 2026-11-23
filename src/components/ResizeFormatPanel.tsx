@@ -14,6 +14,7 @@ import {
   estimateOutputSize,
   formatBytes,
 } from '../utils/canvasRenderer';
+import { StudioSegmented, StudioSlider } from './StudioControls';
 
 interface ResizeFormatPanelProps {
   activeItem: MediaItem | null;
@@ -67,8 +68,16 @@ export function ResizeFormatPanel({
 
   const savingsPct =
     activeItem && estimate
-      ? Math.round(((activeItem.sizeBytes - estimate.estimatedBytes) / Math.max(1, activeItem.sizeBytes)) * 100)
+      ? Math.round(
+          ((activeItem.sizeBytes - estimate.estimatedBytes) / Math.max(1, activeItem.sizeBytes)) *
+            100
+        )
       : null;
+
+  const sizeRatio =
+    activeItem && estimate
+      ? Math.max(8, Math.min(100, Math.round((estimate.estimatedBytes / Math.max(1, activeItem.sizeBytes)) * 100)))
+      : 100;
 
   const selectPreset = (presetId: string) => {
     const p = RESIZE_PRESETS.find((x) => x.id === presetId);
@@ -87,13 +96,13 @@ export function ResizeFormatPanel({
   };
 
   return (
-    <aside className="w-full lg:w-[368px] shrink-0 border-t lg:border-t-0 lg:border-l border-white/[0.08] bg-[#12151B] flex flex-col overflow-hidden">
-      <div className="p-4 border-b border-white/[0.08]">
+    <aside className="w-full flex-1 min-h-0 lg:w-[388px] lg:flex-none shrink-0 lg:border-l border-white/[0.08] bg-[#11141B] flex flex-col overflow-hidden">
+      <div className="p-4 border-b border-white/[0.08] bg-[#0E1117]">
         <h2 className="text-sm font-display font-semibold text-white">
           Resize &amp; Format Converter
         </h2>
-        <p className="text-xs text-slate-400 mt-0.5">
-          Standardize dimensions for social feeds and optimize images as WebP, JPEG, or PNG.
+        <p className="text-[11px] text-slate-400 mt-0.5">
+          Standardize dimensions for social feeds and optimize as WebP, JPEG, or PNG.
         </p>
       </div>
 
@@ -102,7 +111,7 @@ export function ResizeFormatPanel({
         <div className="space-y-2.5">
           <div className="flex items-center justify-between">
             <span className="text-xs font-semibold text-slate-300">Platform &amp; Web Presets</span>
-            <span className="text-[11px] font-mono text-slate-400">
+            <span className="text-[11px] font-mono text-slate-300">
               {targetDims.width}×{targetDims.height}
             </span>
           </div>
@@ -116,10 +125,10 @@ export function ResizeFormatPanel({
                   key={p.id}
                   type="button"
                   onClick={() => selectPreset(p.id)}
-                  className={`p-2 rounded-lg border text-left transition-colors cursor-pointer ${
+                  className={`p-2.5 rounded-xl border text-left transition-colors cursor-pointer min-h-[46px] ${
                     isActive
-                      ? 'bg-blue-600/15 border-blue-500/50 text-white'
-                      : 'bg-[#0B0D10] border-white/[0.08] hover:border-white/[0.16] text-slate-300'
+                      ? 'bg-blue-600/15 border-blue-500/60 text-white'
+                      : 'bg-[#090B0E] border-white/[0.08] hover:border-white/[0.16] text-slate-300'
                   }`}
                 >
                   <div className="text-[11px] font-semibold truncate">{p.platform}</div>
@@ -163,10 +172,12 @@ export function ResizeFormatPanel({
                     enabled: true,
                     presetId: 'custom',
                     width: nextW,
-                    height: resize.lockAspect ? Math.max(16, Math.round(nextW * ratio)) : resize.height,
+                    height: resize.lockAspect
+                      ? Math.max(16, Math.round(nextW * ratio))
+                      : resize.height,
                   });
                 }}
-                className="w-full px-2.5 py-1.5 text-xs font-mono bg-[#0B0D10] border border-white/[0.1] rounded-md text-white focus:outline-none focus:border-blue-500"
+                className="w-full px-3 py-2 text-xs font-mono bg-[#090B0E] border border-white/[0.1] rounded-xl text-white focus:outline-none focus:border-blue-500"
               />
             </div>
             <div>
@@ -184,10 +195,12 @@ export function ResizeFormatPanel({
                     enabled: true,
                     presetId: 'custom',
                     height: nextH,
-                    width: resize.lockAspect ? Math.max(16, Math.round(nextH * ratio)) : resize.width,
+                    width: resize.lockAspect
+                      ? Math.max(16, Math.round(nextH * ratio))
+                      : resize.width,
                   });
                 }}
-                className="w-full px-2.5 py-1.5 text-xs font-mono bg-[#0B0D10] border border-white/[0.1] rounded-md text-white disabled:opacity-40 focus:outline-none focus:border-blue-500"
+                className="w-full px-3 py-2 text-xs font-mono bg-[#090B0E] border border-white/[0.1] rounded-xl text-white disabled:opacity-40 focus:outline-none focus:border-blue-500"
               />
             </div>
           </div>
@@ -208,10 +221,10 @@ export function ResizeFormatPanel({
                   key={mode.id}
                   type="button"
                   onClick={() => onChangeResize({ enabled: true, fitMode: mode.id })}
-                  className={`py-1.5 px-2 text-[11px] font-medium rounded border transition-colors cursor-pointer whitespace-nowrap ${
+                  className={`py-2 px-2.5 text-[11px] font-medium rounded-xl border transition-colors cursor-pointer whitespace-nowrap ${
                     resize.fitMode === mode.id
                       ? 'bg-white/[0.12] border-white/30 text-white'
-                      : 'bg-[#0B0D10] border-white/[0.08] text-slate-400 hover:text-white'
+                      : 'bg-[#090B0E] border-white/[0.08] text-slate-400 hover:text-white'
                   }`}
                 >
                   {mode.label}
@@ -227,65 +240,44 @@ export function ResizeFormatPanel({
                 type="color"
                 value={resize.backgroundColor}
                 onChange={(e) => onChangeResize({ backgroundColor: e.target.value })}
-                className="w-7 h-7 rounded bg-transparent border border-white/20 cursor-pointer"
+                className="w-7 h-7 rounded-lg bg-transparent border border-white/20 cursor-pointer"
               />
             </div>
           )}
         </div>
 
         {/* Format Converter */}
-        <div className="space-y-3 pt-4 border-t border-white/[0.07]">
+        <div className="space-y-3.5 pt-4 border-t border-white/[0.07]">
           <div className="flex items-center justify-between">
             <span className="text-xs font-semibold text-slate-300">Output Format</span>
             <span className="text-[11px] text-blue-400 font-medium">Web Performance</span>
           </div>
 
-          <div className="grid grid-cols-4 gap-1 p-1 rounded-lg bg-[#0B0D10] border border-white/[0.08]">
-            {(
-              [
-                { id: 'original', label: 'Keep' },
-                { id: 'image/webp', label: 'WebP' },
-                { id: 'image/jpeg', label: 'JPEG' },
-                { id: 'image/png', label: 'PNG' },
-              ] as { id: OutputFormat; label: string }[]
-            ).map((fmt) => (
-              <button
-                key={fmt.id}
-                type="button"
-                onClick={() => onChangeFormat({ outputFormat: fmt.id })}
-                className={`py-1.5 text-xs font-medium rounded-md transition-colors cursor-pointer whitespace-nowrap ${
-                  format.outputFormat === fmt.id
-                    ? 'bg-blue-600 text-white'
-                    : 'text-slate-400 hover:text-white'
-                }`}
-              >
-                {fmt.label}
-              </button>
-            ))}
-          </div>
+          <StudioSegmented<OutputFormat>
+            value={format.outputFormat}
+            options={[
+              { id: 'original', label: 'Auto' },
+              { id: 'image/webp', label: 'WebP' },
+              { id: 'image/jpeg', label: 'JPEG' },
+              { id: 'image/png', label: 'PNG' },
+            ]}
+            onChange={(fmt) => onChangeFormat({ outputFormat: fmt })}
+          />
 
           {(format.outputFormat === 'image/webp' || format.outputFormat === 'image/jpeg') && (
             <div className="space-y-2.5">
-              <div>
-                <div className="flex justify-between text-xs text-slate-300 mb-1">
-                  <span>Compression Quality</span>
-                  <span className="font-mono text-slate-200">
-                    {Math.round(format.quality * 100)}%
-                  </span>
-                </div>
-                <input
-                  type="range"
-                  min={0.15}
-                  max={1}
-                  step={0.01}
-                  value={format.quality}
-                  onChange={(e) => onChangeFormat({ quality: parseFloat(e.target.value) })}
-                  className="w-full accent-blue-500 cursor-pointer"
-                />
-                <p className="text-[11px] text-slate-500 mt-1">
-                  80%–88% offers near-lossless sharpness with dramatic file size reduction.
-                </p>
-              </div>
+              <StudioSlider
+                label="Compression Quality"
+                min={0.15}
+                max={1}
+                step={0.01}
+                defaultValue={0.88}
+                value={format.quality}
+                displayValue={`${Math.round(format.quality * 100)}%`}
+                hintLeft="Smallest size"
+                hintRight="Max detail"
+                onChange={(val) => onChangeFormat({ quality: val })}
+              />
 
               {format.outputFormat === 'image/jpeg' && (
                 <div className="flex items-center justify-between">
@@ -294,48 +286,61 @@ export function ResizeFormatPanel({
                     type="color"
                     value={format.jpegBackground}
                     onChange={(e) => onChangeFormat({ jpegBackground: e.target.value })}
-                    className="w-7 h-7 rounded bg-transparent border border-white/20 cursor-pointer"
+                    className="w-7 h-7 rounded-lg bg-transparent border border-white/20 cursor-pointer"
                   />
                 </div>
               )}
             </div>
           )}
 
-          {/* Live Output File Size Estimator */}
+          {/* Visual Compression Savings Card */}
           {activeItem && activeItem.kind !== 'video' && (
-            <div className="p-3 rounded-lg bg-[#0B0D10] border border-white/[0.08] space-y-1.5">
+            <div className="p-3.5 rounded-xl bg-[#090B0E] border border-white/[0.08] space-y-2">
               <div className="flex items-center justify-between text-xs">
                 <span className="text-slate-400 flex items-center gap-1.5">
                   <Sparkles className="w-3.5 h-3.5 text-blue-400" />
                   <span>Estimated Output</span>
                 </span>
-                <span className="font-mono text-white">
+                <span className="font-mono text-white font-semibold">
                   {estimating || !estimate ? 'Calculating...' : formatBytes(estimate.estimatedBytes)}
                 </span>
               </div>
+
               {estimate && (
-                <div className="flex items-center justify-between text-[11px] font-mono">
-                  <span className="text-slate-500">
-                    Source: {formatBytes(activeItem.sizeBytes)}
-                  </span>
-                  {savingsPct !== null && (
-                    <span
-                      className={
-                        savingsPct > 0
-                          ? 'text-emerald-400'
-                          : savingsPct < 0
-                            ? 'text-amber-400'
-                            : 'text-slate-400'
-                      }
-                    >
-                      {savingsPct > 0
-                        ? `${savingsPct}% smaller`
-                        : savingsPct < 0
-                          ? `+${Math.abs(savingsPct)}% larger`
-                          : 'Same size'}
+                <>
+                  <div className="w-full h-1.5 rounded-full bg-white/[0.06] overflow-hidden">
+                    <div
+                      style={{ width: `${sizeRatio}%` }}
+                      className={`h-full rounded-full transition-all duration-300 ${
+                        savingsPct !== null && savingsPct > 0
+                          ? 'bg-emerald-500'
+                          : 'bg-blue-500'
+                      }`}
+                    />
+                  </div>
+                  <div className="flex items-center justify-between text-[11px] font-mono">
+                    <span className="text-slate-500">
+                      Source: {formatBytes(activeItem.sizeBytes)}
                     </span>
-                  )}
-                </div>
+                    {savingsPct !== null && (
+                      <span
+                        className={
+                          savingsPct > 0
+                            ? 'text-emerald-400'
+                            : savingsPct < 0
+                              ? 'text-amber-400'
+                              : 'text-slate-400'
+                        }
+                      >
+                        {savingsPct > 0
+                          ? `${savingsPct}% smaller`
+                          : savingsPct < 0
+                            ? `+${Math.abs(savingsPct)}% larger`
+                            : 'Same size'}
+                      </span>
+                    )}
+                  </div>
+                </>
               )}
             </div>
           )}

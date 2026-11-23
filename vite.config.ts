@@ -4,21 +4,15 @@ import fs from 'fs';
 import path from 'path';
 import {defineConfig} from 'vite';
 
-// When GITHUB_PAGES=true (set in the CI deploy workflow) the app is served
-// from https://<user>.github.io/Pressmark/, so we set the base accordingly.
-// Local dev (and AI Studio) run from /, so the default stays '/'.
-const isGitHubPages = process.env.GITHUB_PAGES === 'true';
-const base = isGitHubPages ? '/Pressmark/' : '/';
-
 export default defineConfig(() => {
   return {
-    base,
+    base: './',
     plugins: [
       react(),
       tailwindcss(),
-      // Copies src/assets into dist/ so asset URLs like
-      // `${import.meta.env.BASE_URL}src/assets/images/...` resolve correctly
-      // both locally and on GitHub Pages. Do not remove.
+      // Copies src/assets into dist/ so root-relative URLs like
+      // "/src/assets/images/..." (e.g. generate_image output) still resolve
+      // in production builds. Do not remove.
       {
         name: 'copy-unbundled-src-assets',
         apply: 'build',

@@ -45,40 +45,40 @@ export function BatchExportWorkspace({
   const visibleLayersCount = sampleLayers.filter((l) => l.visible).length;
 
   return (
-    <div className="flex-1 min-w-0 bg-[#0B0D10] p-6 overflow-y-auto">
+    <div className="flex-1 min-w-0 bg-[#0B0D10] p-4 sm:p-6 overflow-y-auto pb-20 md:pb-6">
       <div className="max-w-5xl mx-auto space-y-6">
         {/* Header + Primary Actions */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b border-white/[0.08]">
           <div>
-            <h2 className="text-xl font-display font-semibold text-white">
+            <h2 className="text-lg sm:text-xl font-display font-semibold text-white">
               Batch Export Pipeline
             </h2>
             <p className="text-xs text-slate-400 mt-1">
-              Every photo, animated GIF, and video is rendered locally at full quality with your watermarks, resize settings, and rename rules.
+              Every photo, animated GIF, and video is rendered locally at full quality with your watermarks, cutouts, resize settings, and rename rules.
             </p>
           </div>
-          <div className="flex items-center gap-2.5 shrink-0">
+          <div className="flex flex-wrap items-center gap-2.5 shrink-0">
             <button
               type="button"
               disabled={items.length === 0 || progress.active}
               onClick={onExportAllIndividual}
-              className="inline-flex items-center gap-2 px-3.5 py-2 text-xs font-medium rounded-lg bg-white/[0.06] hover:bg-white/[0.12] border border-white/[0.1] text-slate-200 disabled:opacity-40 transition-colors cursor-pointer whitespace-nowrap"
+              className="inline-flex items-center gap-2 px-3.5 min-h-[42px] text-xs font-medium rounded-lg bg-white/[0.06] hover:bg-white/[0.12] border border-white/[0.1] text-slate-200 disabled:opacity-40 transition-colors cursor-pointer whitespace-nowrap"
             >
               <Download className="w-3.5 h-3.5" />
-              <span>Save Files Separately</span>
+              <span>Save Separately</span>
             </button>
             <button
               type="button"
               disabled={items.length === 0 || progress.active}
               onClick={onExportZip}
-              className="inline-flex items-center gap-2 px-4 py-2 text-xs font-semibold rounded-lg bg-blue-600 hover:bg-blue-500 text-white disabled:opacity-40 transition-colors cursor-pointer whitespace-nowrap"
+              className="inline-flex items-center gap-2 px-4 min-h-[42px] text-xs font-semibold rounded-lg bg-blue-600 hover:bg-blue-500 text-white disabled:opacity-40 transition-colors cursor-pointer whitespace-nowrap"
             >
               {progress.active ? (
                 <Loader2 className="w-3.5 h-3.5 animate-spin" />
               ) : (
                 <Archive className="w-3.5 h-3.5" />
               )}
-              <span>Export All as ZIP ({items.length})</span>
+              <span>Export ZIP ({items.length})</span>
             </button>
           </div>
         </div>
@@ -135,7 +135,7 @@ export function BatchExportWorkspace({
             <div className="text-[11px] text-slate-400">Image Format</div>
             <div className="text-sm font-medium text-white mt-1 truncate">
               {format.outputFormat === 'original'
-                ? 'Keep source format'
+                ? 'Auto / Source'
                 : `${format.outputFormat.replace('image/', '').toUpperCase()} · ${Math.round(
                     format.quality * 100
                   )}%`}
@@ -144,8 +144,8 @@ export function BatchExportWorkspace({
         </div>
 
         {/* Queue Export Table */}
-        <div className="rounded-lg border border-white/[0.08] bg-[#12151B] overflow-hidden">
-          <table className="w-full text-left border-collapse">
+        <div className="rounded-lg border border-white/[0.08] bg-[#12151B] overflow-x-auto">
+          <table className="w-full min-w-[600px] text-left border-collapse">
             <thead>
               <tr className="border-b border-white/[0.08] text-[11px] font-medium text-slate-400 bg-[#0E1014]">
                 <th className="py-2.5 px-4">Asset</th>

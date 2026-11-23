@@ -1,5 +1,30 @@
 export type MediaKind = 'image' | 'gif' | 'video';
 
+export type BgRemovalMode = 'flood' | 'global' | 'luma-light' | 'luma-dark';
+export type BgPreviewBackdrop = 'checker' | 'dark' | 'light' | 'green' | 'ruby';
+
+export interface BgBrushStroke {
+  type: 'erase' | 'restore';
+  x: number; // 0..1 normalized
+  y: number; // 0..1 normalized
+  radius: number; // normalized to min dimension (0.01..0.15)
+}
+
+export interface BgRemovalConfig {
+  enabled: boolean;
+  mode: BgRemovalMode;
+  targetColor: string; // hex e.g. #ffffff
+  tolerance: number; // 0..140
+  softness: number; // 0..20 px (edge feather)
+  choke: number; // -10..10 px (shrink/expand mask)
+  despill: number; // 0..100 %
+  edgeContrast: number; // 0..100 %
+  protectDetails: number; // 0..100 %
+  invertMask: boolean;
+  previewBackdrop: BgPreviewBackdrop;
+  strokes: BgBrushStroke[];
+}
+
 export interface MediaItem {
   id: string;
   name: string;
@@ -12,6 +37,7 @@ export interface MediaItem {
   mimeType: string;
   durationSec?: number;
   isSample?: boolean;
+  bgRemoval?: BgRemovalConfig;
 }
 
 export type WatermarkType = 'text' | 'image' | 'badge';
@@ -44,7 +70,7 @@ export interface WatermarkLayer {
 
   // Placement & tiling
   placementMode: PlacementMode;
-  tileSpacing: number; // 1.2..4.0 multiplier
+  tileSpacing: number; // 1.1..4.0 multiplier
   tileAngle: number; // -60..60 deg for tiled grid
   customArea: CustomArea;
 
@@ -127,7 +153,7 @@ export interface WatermarkPreset {
   isBuiltIn?: boolean;
 }
 
-export type WorkspaceTab = 'watermark' | 'resize' | 'rename' | 'export';
+export type WorkspaceTab = 'watermark' | 'remove-bg' | 'resize' | 'rename' | 'export';
 
 export interface ExportProgress {
   active: boolean;

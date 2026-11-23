@@ -52,3 +52,30 @@
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(255, 255, 255, 0.24);
 }
+
+@keyframes kofiHeartPulse {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+    opacity: 0.92;
+  }
+  35% {
+    transform: translateY(-1.2px) scale(1.18);
+    opacity: 1;
+  }
+  65% {
+    transform: translateY(-0.4px) scale(0.96);
+    opacity: 0.95;
+  }
+}
+
+.animate-kofi-heart {
+  transform-origin: center;
+  animation: kofiHeartPulse 2.2s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-kofi-heart {
+    animation: none;
+  }
+}
+

@@ -5,6 +5,7 @@ import {
   ResizeConfig,
   WatermarkLayer,
 } from '../types/studio';
+import { processBackgroundRemoval } from './bgRemover';
 
 const logoImageCache = new Map<string, HTMLImageElement>();
 const tintedLogoCache = new Map<string, HTMLCanvasElement>();
@@ -89,6 +90,9 @@ export function resolveOutputMimeAndExt(
     return { mime: 'image/gif', ext: 'gif' };
   }
   if (format.outputFormat === 'original') {
+    if (item.bgRemoval?.enabled) {
+      return { mime: 'image/png', ext: 'png' };
+    }
     const lower = item.name.toLowerCase();
     if (lower.endsWith('.png') || item.mimeType === 'image/png') {
       return { mime: 'image/png', ext: 'png' };
@@ -715,11 +719,15 @@ export async function estimateOutputSize(
       }
     }
 
+    const sourceForComposite: CanvasImageSource = item.bgRemoval?.enabled
+      ? processBackgroundRemoval(img, item.width, item.height, item.bgRemoval, { maxDim: 1200 })
+      : img;
+
     renderFullComposite(
       ctx,
-      img,
-      item.width,
-      item.height,
+      sourceForComposite,
+      item.bgRemoval?.enabled ? (sourceForComposite as HTMLCanvasElement).width : item.width,
+      item.bgRemoval?.enabled ? (sourceForComposite as HTMLCanvasElement).height : item.height,
       dims.width,
       dims.height,
       layers,

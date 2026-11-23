@@ -15,6 +15,7 @@ import {
   renderFullComposite,
   resolveOutputMimeAndExt,
 } from './canvasRenderer';
+import { processBackgroundRemoval } from './bgRemover';
 
 async function preloadLayerImages(layers: WatermarkLayer[]) {
   await Promise.all(
@@ -32,7 +33,9 @@ export async function exportImageBlob(
 ): Promise<Blob> {
   await preloadLayerImages(layers);
   const img = await loadImageAsync(item.url);
-  const dims = computeTargetDimensions(img.naturalWidth || item.width, img.naturalHeight || item.height, resize);
+  const srcW = img.naturalWidth || item.width;
+  const srcH = img.naturalHeight || item.height;
+  const dims = computeTargetDimensions(srcW, srcH, resize);
 
   const canvas = document.createElement('canvas');
   canvas.width = dims.width;
@@ -40,11 +43,15 @@ export async function exportImageBlob(
   const ctx = canvas.getContext('2d');
   if (!ctx) throw new Error('Canvas 2D context unavailable');
 
+  const sourceMedia: CanvasImageSource = item.bgRemoval?.enabled
+    ? processBackgroundRemoval(img, srcW, srcH, item.bgRemoval)
+    : img;
+
   renderFullComposite(
     ctx,
-    img,
-    img.naturalWidth || item.width,
-    img.naturalHeight || item.height,
+    sourceMedia,
+    srcW,
+    srcH,
     dims.width,
     dims.height,
     layers,
