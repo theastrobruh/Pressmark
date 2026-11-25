@@ -1,84 +1,82 @@
-# Pressmark — `BETA v.0.5.0`
+<div align="center">
 
-**by: [theAstroBruh](https://github.com/theastrobruh)**
+<!-- Animated SVG logo — cosmic stamp & pressmark core -->
+<a href="https://theastrobruh.github.io/Pressmark/">
+  <img src="public/assets/readme/pressmark-logo.svg" alt="Pressmark — Browser-Native Watermark, Background Removal & Media Studio" width="460"/>
+</a>
 
-Pressmark is a fast, 100% client-side media preparation studio for creators and web developers. Add customizable watermarks to photos, animated GIFs, and videos, remove backgrounds with pixel-level slider control, resize for social platforms, convert formats (`PNG`, `JPEG`, `WebP`), bulk rename files, and export everything as a ZIP — without uploading a single byte to external servers.
+<br/>
 
----
+> **Fast, 100% client-side media preparation studio for creators and web developers. Add customizable watermarks to photos, animated GIFs, and videos, remove backgrounds with pixel-level control, resize for social platforms, convert formats (`PNG`, `JPEG`, `WebP`), bulk rename, and export as ZIP — without uploading a single byte.**
 
-## What You Can Do
+[![CI/CD](https://img.shields.io/badge/CI%2FCD-GitHub%20Actions-2088FF?logo=githubactions&logoColor=white)](https://github.com/theastrobruh/Pressmark/actions)
+[![GitHub Pages](https://img.shields.io/badge/Live%20on-GitHub%20Pages-222?logo=github&logoColor=white)](https://theastrobruh.github.io/Pressmark/)
+[![React 19](https://img.shields.io/badge/React%2019-v19.0.1-61DAFB?logo=react&logoColor=black)](https://react.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-v7-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Vite](https://img.shields.io/badge/Vite-v8.3-646CFF?logo=vite&logoColor=white)](https://vitejs.dev/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind-v4-38B2AC?logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
+[![Version](https://img.shields.io/badge/Version-v0.5.0-00E5FF)](#)
+[![Ko-fi](https://img.shields.io/badge/Support-Ko--fi-FF5E5B?logo=ko-fi&logoColor=white)](https://ko-fi.com/theastrobruh)
 
-- **Watermarking (Images, GIFs & Videos)**
-  - Text handles (defaults to `@Pressmark_webapp` bottom-center at `77%` opacity), custom image/SVG logos, studio EXIF/copyright badges, tiled diagonal proofs, dual-corner stamps, and clipped custom safe areas.
-  - 17 curated typography options across Sans, Serif, Display, Script, and Mono with category filters and live font previews.
-  - Save custom presets, import/export preset JSON packs, and recall your **Last Placed** watermark setup in one click.
-  - Full Undo / Redo (`Ctrl/Cmd + Z`, `Ctrl/Cmd + Shift + Z`) and keyboard arrow-key nudging.
+<br/>
 
-- **Precision Background Removal**
-  - Edge-seeded flood fill, global chroma key, and light/dark luminance modes.
-  - Fine-grained sliders for **Tolerance**, **Edge Choke / Expand** (`-10px` to `+10px`), **Edge Softness**, **Edge Contrast**, **Color Despill**, and **Subject Detail Guard**.
-  - Interactive stage **Eyedropper**, **Auto-Sample Border**, **Erase / Restore Brush**, mask inversion, and checkerboard/contrast preview backdrops.
+[**🎨 Open Pressmark**](https://theastrobruh.github.io/Pressmark/) · [**🚀 the.astro.os**](https://theastrobruh.github.io/the.astro.os/) · [**📷 Astro.Studio**](https://theastrobruh.github.io/Astro.Studio/) · [**🎴 CardGram**](https://theastrobruh.github.io/CardGram/) · [**☕ Support the Project**](https://ko-fi.com/theastrobruh)
 
-- **Resize & Format Conversion**
-  - Social media and web presets (Instagram Square/Portrait/Stories, X, YouTube, LinkedIn/OpenGraph, Max-Width Web).
-  - Convert batches between **PNG**, **JPEG**, and **WebP** with real-time estimated output file-size savings.
-
-- **Bulk Renaming & Batch Export**
-  - Dynamic naming patterns using tokens (`{name}`, `{n}`, `{preset}`, `{dim}`, `{year}`, `{date}`) plus find/replace and case transforms.
-  - Export individual assets, frame-accurate animated GIFs, watermarked WebM videos, or an entire batch packaged into a single `.zip` archive.
+</div>
 
 ---
 
-## Local Development
+## ✨ One Ecosystem: theAstroBruh Universe
+
+**Pressmark** is part of the creative web-app ecosystem built by **[theAstroBruh](https://github.com/theastrobruh)**, sharing the same engineering philosophy: fast, private, browser-native creative tools with zero heavy backends or external servers.
+
+```
+                          ┌───────────────────────────┐
+                          │   theAstroBruh Universe   │
+                          └─────────────┬─────────────┘
+                                        │
+        ┌───────────────────────────────┼───────────────────────────────┐
+        ▼                               ▼                               ▼
+  the.astro.os                    Astro.Studio                      Pressmark
+  Web Desktop OS              Photo & Color Studio          Watermark & Media Studio
+```
+
+---
+
+## 🛠️ Key Features
+
+| | Module | Details |
+|---|---|---|
+| 💧 | **Watermarking (Images, GIFs & Videos)** | Text handles, custom image/SVG logos, studio EXIF/copyright badges, tiled diagonal proofs, dual-corner stamps, 17 curated fonts, saved presets, and **Last Placed** one-click recall. |
+| ✂️ | **Precision Background Removal** | Edge-seeded flood fill, global chroma key, light/dark luminance modes, **Tolerance**, **Edge Choke/Expand** (`-10px` to `+10px`), **Despill**, **Eyedropper**, and **Erase / Restore Brush**. |
+| 📐 | **Resize & Format Conversion** | Social media and web presets (Instagram, X, YouTube, LinkedIn/OpenGraph, Max-Width Web) with batch **PNG**, **JPEG**, and **WebP** conversion and live file-size savings. |
+| 🏷️ | **Bulk Renaming & Batch ZIP** | Dynamic token patterns (`{name}`, `{n}`, `{preset}`, `{dim}`, `{year}`, `{date}`), find/replace, case transforms, frame-accurate GIFs, WebM videos, and single-click `.zip` export. |
+| 🔒 | **100% Local & Private** | All image decoding, canvas compositing, GIF re-encoding, video capture, background removal, and ZIP packaging execute locally in your browser. |
+
+---
+
+## 💻 Local Development
 
 Requirements: **Node.js 20+** (Node 22 recommended) and `npm`.
 
 ```bash
-# 1. Install dependencies
+# Install dependencies
 npm install
 
-# 2. Start the development server (http://localhost:3000)
+# Start development server (http://localhost:3000)
 npm run dev
-```
 
-### Verification & Production Build
-
-```bash
-# Run TypeScript typecheck
+# Run TypeScript typecheck and build for production
 npm run lint
-
-# Build static production bundle into ./dist
 npm run build
-
-# Preview production build locally
-npm run preview
 ```
 
 ---
 
-## Running on GitHub via GitHub Actions
+## 🚀 GitHub Pages Deployment
 
 This repository ships ready for automated CI and static deployment with zero backend dependencies:
 
-1. **Continuous Integration** (`.github/workflows/ci.yml`)
-   - Automatically runs `npm run lint` and `npm run build` on every push or pull request to `main` / `master`.
-
-2. **GitHub Pages Deployment** (`.github/workflows/deploy-pages.yml`)
-   - Push this project to your GitHub repository.
-   - Open **Settings → Pages** in your GitHub repository.
-   - Under **Build and deployment → Source**, choose **GitHub Actions**.
-   - Trigger the workflow (or push to `main`) — `vite.config.ts` uses `base: './'` and bundled static imports so all fonts, media, and scripts resolve cleanly on any `https://<username>.github.io/<repo>/` URL.
-
----
-
-## Privacy
-
-All image decoding, canvas compositing, GIF re-encoding, video capture, background removal, and ZIP packaging execute locally inside your browser. Your media never leaves your device.
-
----
-
-## Links
-
-- GitHub: [github.com/theastrobruh](https://github.com/theastrobruh)
-- Web OS: [the.astro.os](https://theastrobruh.github.io/the.astro.os/)
-- Support on Ko-fi: [ko-fi.com/theastrobruh](https://ko-fi.com/theastrobruh)
+1. Push the project to your GitHub repository on `main`.
+2. Open **Settings → Pages** and select **Source: GitHub Actions**.
+3. Every `push` to `main` runs `npm run lint` and `npm run build`, publishing `dist/` to `https://<username>.github.io/Pressmark/`.

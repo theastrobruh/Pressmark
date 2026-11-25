@@ -34,19 +34,38 @@ export function TopBar({
             e.preventDefault();
             onSelectTab('watermark');
           }}
-          className="flex flex-col justify-center leading-none shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded"
+          className="flex items-center gap-2.5 shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded"
         >
-          <div className="flex items-baseline gap-1.5 sm:gap-2 whitespace-nowrap">
-            <span className="font-display text-[15px] sm:text-lg font-bold tracking-tight text-white">
-              Pressmark
-            </span>
-            <span className="font-mono text-[9.5px] sm:text-[11px] font-medium text-blue-400">
-              BETA v.0.5.0
+          <svg
+            viewBox="0 0 64 64"
+            className="w-8 h-8 shrink-0"
+            aria-hidden="true"
+          >
+            <defs>
+              <linearGradient id="pmBrandGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#00E5FF" />
+                <stop offset="50%" stopColor="#8B5CF6" />
+                <stop offset="100%" stopColor="#F59E0B" />
+              </linearGradient>
+            </defs>
+            <rect x="3" y="3" width="58" height="58" rx="15" fill="#070B14" stroke="url(#pmBrandGrad)" strokeWidth="3" />
+            <rect x="20" y="20" width="24" height="24" rx="5.5" fill="#0F172A" stroke="#00E5FF" strokeWidth="2" />
+            <path d="M27 26.5 H33.5 A3.5 3.5 0 0 1 33.5 33.5 H27 Z M27 33.5 V38" fill="none" stroke="#FFFFFF" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
+            <circle cx="48" cy="16" r="2.8" fill="#F59E0B" />
+          </svg>
+          <div className="flex flex-col justify-center leading-none">
+            <div className="flex items-baseline gap-1.5 sm:gap-2 whitespace-nowrap">
+              <span className="font-display text-[15px] sm:text-lg font-bold tracking-tight text-white">
+                Pressmark
+              </span>
+              <span className="font-mono text-[9.5px] sm:text-[11px] font-medium text-cyan-400">
+                BETA v.0.5.0
+              </span>
+            </div>
+            <span className="text-[9.5px] sm:text-[10px] text-slate-400 tracking-wide mt-0.5 whitespace-nowrap">
+              by: theAstroBruh
             </span>
           </div>
-          <span className="text-[9.5px] sm:text-[10px] text-slate-400 tracking-wide mt-0.5 whitespace-nowrap">
-            by: theAstroBruh
-          </span>
         </a>
 
         {/* Symmetric space between Brand Logo and Main Navigation (Desktop) / Export CTA (Mobile) */}
